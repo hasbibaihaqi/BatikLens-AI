@@ -1,7 +1,4 @@
 import os
-# BARIS PENYELAMAT: Harus dipanggil paling awal sebelum TensorFlow!
-os.environ['TF_USE_LEGACY_KERAS'] = '1'
-
 import json
 import uuid
 import numpy as np
