@@ -4,3 +4,5 @@ numpy
 Werkzeug
 Pillow
 gunicorn
+tensorflow
+tf-keras
