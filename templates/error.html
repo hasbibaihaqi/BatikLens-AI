@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Error {{ code }} – {{ message }} | BatikLens{% endblock %}
+
+{% block content %}
+<section class="error-section d-flex align-items-center" style="min-height: 70vh;">
+    <div class="container text-center" data-aos="fade-up">
+        <div class="error-card glass-card p-5 mx-auto" style="max-width: 520px;">
+            <div class="error-icon mb-3" aria-hidden="true">
+                {% if code == 404 %}
+                    <i class="fa-solid fa-compass-drafting"></i>
+                {% else %}
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                {% endif %}
+            </div>
+            <div class="error-code">{{ code }}</div>
+            <h3 class="text-white fw-bold mb-3">{{ message }}</h3>
+            <p class="text-white-50 mb-4">
+                {% if code == 404 %}
+                    Halaman yang Anda cari tidak ditemukan. Mungkin URL salah atau halaman telah dipindahkan.
+                {% elif code == 500 %}
+                    Terjadi kesalahan pada server. Tim kami sedang menanganinya. Silakan coba lagi.
+                {% else %}
+                    Terjadi kesalahan yang tidak terduga. Silakan kembali ke beranda.
+                {% endif %}
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="/" class="btn btn-gold rounded-pill px-4 py-2 fw-semibold" id="btn-go-home">
+                    <i class="fa-solid fa-house me-2"></i>Kembali ke Beranda
+                </a>
+                <a href="/about" class="btn btn-glass rounded-pill px-4 py-2 fw-semibold" id="btn-go-about">
+                    <i class="fa-solid fa-circle-info me-2"></i>Tentang BatikLens
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% block title %}BatikLens – Identifikasi Motif Batik Indonesia dengan AI{% endblock %}
+
+{% block content %}
+
+<!-- ========== HERO SECTION ========== -->
+<section class="hero-section" id="hero">
+    <div class="container">
+        <div class="row align-items-center min-vh-hero g-5">
+
+            <!-- Left: Hero Text -->
+            <div class="col-lg-6 text-center text-lg-start" data-aos="fade-right" data-aos-duration="800">
+                <div class="hero-badge mb-4">
+                    <i class="fa-solid fa-brain me-2"></i>Deep Learning &bull; VGG16 Architecture
+                </div>
+                <h1 class="hero-title">
+                    Kenali Motif<br>
+                    <span class="gradient-text">Batik Indonesia</span><br>
+                    Secara Instan
+                </h1>
+                <p class="hero-subtitle">
+                    Teknologi <strong>kecerdasan buatan</strong> berbasis VGG16 untuk mengidentifikasi
+                    <strong>20 motif batik Nusantara</strong> dengan akurasi tinggi.
+                    Cukup unggah foto dan dapatkan hasilnya dalam hitungan detik.
+                </p>
+
+                <!-- Stats Row -->
+                <div class="hero-stats d-flex gap-4 mt-4 justify-content-center justify-content-lg-start flex-wrap">
+                    <div class="stat-item text-center">
+                        <span class="stat-num">20</span>
+                        <span class="stat-label">Motif Batik</span>
+                    </div>
+                    <div class="stat-divider d-none d-sm-block"></div>
+                    <div class="stat-item text-center">
+                        <span class="stat-num">VGG16</span>
+                        <span class="stat-label">Deep Learning</span>
+                    </div>
+                    <div class="stat-divider d-none d-sm-block"></div>
+                    <div class="stat-item text-center">
+                        <span class="stat-num">AI</span>
+                        <span class="stat-label">Powered</span>
+                    </div>
+                </div>
+
+                <!-- Scroll hint on desktop -->
+                <div class="scroll-hint mt-5 d-none d-lg-flex align-items-center gap-2">
+                    <div class="scroll-line"></div>
+                    <span class="text-white-50 small">Scroll untuk info lebih</span>
+                </div>
+            </div>
+
+            <!-- Right: Upload Card -->
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                <div class="upload-card glass-card p-4 p-md-5">
+                    <div class="mb-4">
+                        <h3 class="text-white fw-bold mb-1">
+                            <i class="fa-solid fa-magnifying-glass me-2 text-gold"></i>Analisis Gambar
+                        </h3>
+                        <p class="text-white-50 small mb-0">Unggah foto kain batik untuk diidentifikasi AI</p>
+                    </div>
+
+                    <form action="/predict" method="POST" enctype="multipart/form-data" id="upload-form" novalidate>
+
+                        <!-- Drop Zone -->
+                        <div class="upload-drop-zone" id="upload-drop-zone" role="button" tabindex="0"
+                             aria-label="Upload area - drag and drop or click to select image">
+                            <div class="upload-icon-wrapper" id="upload-icon-area">
+                                <div class="upload-icon-bg">
+                                    <i class="fa-solid fa-cloud-arrow-up upload-icon-fa"></i>
+                                </div>
+                                <h5 class="text-white mt-3 mb-1 fw-semibold">Drag &amp; Drop Gambar</h5>
+                                <p class="text-white-50 small mb-3">atau <span class="text-gold fw-semibold">klik untuk memilih file</span></p>
+                                <div class="file-type-badges">
+                                    <span class="file-badge">PNG</span>
+                                    <span class="file-badge">JPG</span>
+                                    <span class="file-badge">JPEG</span>
+                                    <span class="file-badge">WEBP</span>
+                                </div>
+                                <p class="text-white-50 x-small mt-2 mb-0"><i class="fa-solid fa-shield-halved me-1"></i>Maks. 5MB</p>
+                            </div>
+                            <input type="file" name="file" id="file-input"
+                                   accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
+                                   class="file-input-hidden" required aria-label="Pilih file gambar batik">
+                        </div>
+
+                        <!-- Image Preview -->
+                        <div id="image-preview-container" class="mt-4 d-none" aria-live="polite">
+                            <div class="preview-wrapper">
+                                <img id="image-preview" src="" alt="Preview gambar batik yang dipilih" class="preview-img">
+                                <button type="button" class="preview-remove-btn" id="remove-preview-btn"
+                                        aria-label="Hapus gambar yang dipilih" title="Hapus gambar">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                                <div class="preview-overlay">
+                                    <span class="preview-filename" id="preview-filename"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-gold w-100 mt-4 py-3 rounded-pill fw-bold fs-6"
+                                id="btn-predict" disabled aria-label="Mulai analisis gambar batik">
+                            <span id="btn-text">
+                                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Analisis Sekarang
+                            </span>
+                            <span id="btn-spinner" class="d-none" aria-hidden="true">
+                                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                Memproses Gambar...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FEATURES SECTION ========== -->
+<section class="features-section py-5" id="features">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-badge">Keunggulan</span>
+            <h2 class="section-title text-white mt-2">Mengapa BatikLens?</h2>
+            <p class="text-white-50">Platform terdepan untuk identifikasi dan edukasi batik Indonesia</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-card glass-card p-4 h-100 text-center">
+                    <div class="feature-icon icon-purple mb-3">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Deep Learning</h5>
+                    <p class="text-white-50 small mb-0">
+                        Menggunakan arsitektur <strong>VGG16</strong> yang telah dilatih khusus dengan ribuan gambar
+                        batik untuk mengenali pola, tekstur, dan warna khas setiap motif.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card glass-card p-4 h-100 text-center">
+                    <div class="feature-icon icon-amber mb-3">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">20 Motif Batik</h5>
+                    <p class="text-white-50 small mb-0">
+                        Mengenali <strong>20 jenis motif batik Nusantara</strong> dari berbagai daerah, lengkap
+                        dengan informasi asal daerah, filosofi, dan keunikannya.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-card glass-card p-4 h-100 text-center">
+                    <div class="feature-icon icon-green mb-3">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Analisis Instan</h5>
+                    <p class="text-white-50 small mb-0">
+                        Dapatkan hasil identifikasi dalam hitungan detik, lengkap dengan
+                        <strong>persentase akurasi</strong> dan deskripsi detail motif yang terdeteksi.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== MOTIF SHOWCASE ========== -->
+<section class="motif-section py-4 pb-5" id="motif-list">
+    <div class="container">
+        <div class="text-center mb-4" data-aos="fade-up">
+            <p class="text-white-50 small mb-2 text-uppercase tracking-wide">Motif yang dapat diidentifikasi</p>
+        </div>
+        <div class="motif-chips-wrapper" data-aos="fade-up" data-aos-delay="100">
+            {% set motifs = [
+                ('🌺', 'Batik Bali'), ('🦁', 'Batik Betawi'), ('🎨', 'Batik Celup'),
+                ('🦜', 'Batik Cendrawasih'), ('⭐', 'Batik Ceplok'), ('🌿', 'Batik Ciamis'),
+                ('💎', 'Batik Garutan'), ('🏺', 'Batik Gentongan'), ('👑', 'Batik Kawung'),
+                ('🏰', 'Batik Keraton'), ('🏮', 'Batik Lasem'), ('☁️', 'Batik Megamendung'),
+                ('⚔️', 'Batik Parang'), ('🌊', 'Batik Pekalongan'), ('🌾', 'Batik Priangan'),
+                ('🌸', 'Batik Sekar'), ('✨', 'Batik Sidoluhur'), ('🌟', 'Batik Sidomukti'),
+                ('🍂', 'Batik Sogan'), ('🔮', 'Batik Tambal')
+            ] %}
+            {% for icon, motif in motifs %}
+                <span class="motif-chip">
+                    <span class="chip-icon">{{ icon }}</span>{{ motif }}
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

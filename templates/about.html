@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}Tentang BatikLens – Mengenal Motif Batik Indonesia{% endblock %}
+
+{% block content %}
+
+<!-- ========== ABOUT HERO ========== -->
+<section class="about-hero py-5 text-center" id="about-hero">
+    <div class="container" data-aos="fade-up">
+        <span class="section-badge">Tentang Kami</span>
+        <h1 class="hero-title mt-3 mb-3">
+            Tentang <span class="gradient-text">BatikLens</span>
+        </h1>
+        <p class="text-white-50 mx-auto" style="max-width: 600px; font-size: 1.05rem; line-height: 1.7;">
+            Platform kecerdasan buatan untuk mengidentifikasi dan mengedukasi masyarakat
+            tentang kekayaan warisan motif batik Indonesia yang tak ternilai.
+        </p>
+    </div>
+</section>
+
+<!-- ========== ABOUT CARDS ========== -->
+<section class="py-3">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            <div class="col-md-6" data-aos="fade-right">
+                <div class="glass-card p-4 h-100">
+                    <div class="feature-icon icon-purple mb-3">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Teknologi AI Terkini</h5>
+                    <p class="text-white-50 mb-0">
+                        Menggunakan arsitektur <strong>VGG16</strong> (Very Deep Convolutional Networks)
+                        yang telah di-fine-tune dengan dataset ribuan gambar batik dari seluruh Nusantara.
+                        Model ini mampu mengenali pola, tekstur, gradasi warna, dan karakteristik unik setiap motif batik.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="glass-card p-4 h-100">
+                    <div class="feature-icon icon-amber mb-3">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Misi Pelestarian Budaya</h5>
+                    <p class="text-white-50 mb-0">
+                        BatikLens hadir untuk <strong>memperkenalkan dan melestarikan</strong> kekayaan warisan
+                        batik Indonesia kepada generasi muda melalui teknologi modern. Setiap identifikasi
+                        adalah langkah kecil dalam menjaga warisan budaya bangsa yang telah diakui UNESCO.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-right">
+                <div class="glass-card p-4 h-100">
+                    <div class="feature-icon icon-green mb-3">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Teknologi yang Digunakan</h5>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                        <span class="tech-chip"><i class="fa-brands fa-python me-1"></i>Python</span>
+                        <span class="tech-chip">TensorFlow / Keras</span>
+                        <span class="tech-chip">VGG16 CNN</span>
+                        <span class="tech-chip"><i class="fa-solid fa-flask me-1"></i>Flask</span>
+                        <span class="tech-chip">NumPy</span>
+                        <span class="tech-chip">Pillow</span>
+                        <span class="tech-chip">Bootstrap 5</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="glass-card p-4 h-100">
+                    <div class="feature-icon icon-pink mb-3">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h5 class="text-white fw-bold mb-2">Tentang Pengembang</h5>
+                    <p class="text-white-50 mb-2">
+                        BatikLens dikembangkan sebagai proyek tugas AI oleh:
+                    </p>
+                    <p class="text-white fw-semibold mb-1"><i class="fa-solid fa-user text-gold me-2"></i>Hasbi Baihaqi</p>
+                    <p class="text-white-50 small mb-0">Teknik Informatika &bull; UNIBBA &bull; 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== MOTIF CATALOG ========== -->
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-badge">Koleksi Lengkap</span>
+            <h2 class="section-title text-white mt-2">{{ batik_info|length }} Motif Batik Nusantara</h2>
+            <p class="text-white-50">Klik kartu untuk melihat informasi lengkap setiap motif</p>
+        </div>
+
+        <div class="row g-3" id="motif-grid">
+            {% for key, info in batik_info.items() %}
+            <div class="col-sm-6 col-lg-4 col-xl-3"
+                 data-aos="fade-up" data-aos-delay="{{ [50, 80, 100, 120, 150][loop.index0 % 5] }}">
+                <div class="motif-catalog-card glass-card p-3 h-100"
+                     tabindex="0" role="button"
+                     aria-label="{{ key.replace('-', ' ').title() }}">
+                    <div class="d-flex align-items-center mb-2 gap-2">
+                        <span class="motif-card-icon">{{ info.icon }}</span>
+                        <div>
+                            <h6 class="text-white fw-bold mb-0 small">{{ key.replace('-', ' ').title() }}</h6>
+                            <p class="text-gold x-small mb-0">
+                                <i class="fa-solid fa-location-dot me-1" style="font-size:0.65rem;"></i>{{ info.asal }}
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-white-50 x-small mb-2 lh-relaxed">
+                        {{ info.deskripsi[:130] }}...
+                    </p>
+                    <div class="keunikan-pill mt-auto">
+                        <i class="fa-solid fa-star text-gold me-1" style="font-size:0.65rem;"></i>
+                        <span class="text-white-50 x-small">{{ info.keunikan[:90] }}...</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-5 pt-3" data-aos="fade-up">
+            <p class="text-white-50 mb-3">Sudah kenal motifnya? Coba identifikasi sekarang!</p>
+            <a href="/" class="btn btn-gold rounded-pill px-5 py-3 fw-bold fs-6">
+                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Mulai Analisis Batik
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
